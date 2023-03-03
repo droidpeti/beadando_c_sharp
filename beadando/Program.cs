@@ -145,26 +145,47 @@
 
         static film filmfeltoltes(film filmadatok)
         {
-            Console.Write("Add meg a film címét: ");
-            do
-            {
-                filmadatok.cim = Console.ReadLine();
-            } while (filmadatok.cim.Length < 1);
+            Console.WriteLine("Add meg a film címét: ");
+            filmadatok.cim = hibakezelt_string();
 
+            Console.WriteLine("Add meg a film megjelenési évét!");
+            filmadatok.megjelenes = hibakezelt_int();
+
+            Console.WriteLine("Add meg a film gyártóját: ");
+            filmadatok.gyarto = hibakezelt_string();
+            
+
+
+            return filmadatok;
+        }
+
+        static string hibakezelt_string()
+        {
+            string szoveg = "";
+             while (szoveg.Length < 1)
+            {
+                Console.Write("Adj meg egy szöveget: ");
+                szoveg = Console.ReadLine();
+            }
+            return szoveg;
+        }
+
+        static int hibakezelt_int()
+        {
             bool ok = false;
+            int szam = 0;
             do
             {
-                Console.Write("Add meg a film megjelenési évét: ");
-                ok = int.TryParse(Console.ReadLine(), out filmadatok.megjelenes);
+                Console.Write("Adj meg egy egész számot: ");
+                ok = int.TryParse(Console.ReadLine(), out szam);
                 if (!ok)
                 {
                     Console.WriteLine("Kérlek egész számot adj meg!!! (ENTER...)");
                     Console.ReadLine();
                 }
             } while (!ok);
-            return filmadatok;
+            return szam;
         }
-
         static void Main(string[] args)
         {
             string szoveg = "Üdv a Filmes beadandó programomban!";
