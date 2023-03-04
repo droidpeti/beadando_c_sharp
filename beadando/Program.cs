@@ -15,6 +15,7 @@
     {
         static void keret(byte x, byte y, byte hossz, int magassag)
         {
+            //üdvözlő keret kiirató
             Console.Clear();
             Console.BackgroundColor = ConsoleColor.Blue;
             if (x > Console.WindowWidth)
@@ -62,6 +63,7 @@
 
         static film[] beolvaso()
         {
+            //A Filmek beolvasása fájlból, sajnos 100-nál nagyobb listával nem fog működni :(
             film[] filmek = new film[100];
 
             FileStream fs = new FileStream("filmek.txt", FileMode.Open);
@@ -91,6 +93,7 @@
 
         static void filmlistakiirato(film[] filmek)
         {
+            //A beolvasott filmek listája kiiratása
             for (byte i = 0; i < filmek.Length; i++)
             {
                 Console.BackgroundColor = ConsoleColor.DarkRed;
@@ -124,6 +127,7 @@
         }
         static byte menu()
         {
+            //Menü kezelése, ellenőrzéssel
             bool ok = false;
             byte menupont = 0;
             do
@@ -145,6 +149,7 @@
 
         static film filmfeltoltes(film filmadatok)
         {
+            //Új film feltöltése
             Console.Clear();
             Console.WriteLine("Add meg a film címét!");
             filmadatok.cim = hibakezelt_string();
@@ -199,6 +204,7 @@
             return filmadatok;
         }
 
+        //string ellenőrző (ne legyen üres!!!)
         static string hibakezelt_string()
         {
             string szoveg = "";
@@ -212,6 +218,7 @@
 
         static int hibakezelt_int()
         {
+            //int ellenőrző
             bool ok = false;
             int szam = 0;
             do
@@ -228,8 +235,9 @@
         }
         static void Main(string[] args)
         {
+            //üdvözlő keret
             string szoveg = "Üdv a Filmes beadandó programomban!";
-            string szoveg2 = "Nyomd meg az ENTERT a folytatáshoz...";
+            string szoveg2 = "Nyomd meg az ENTERT a folytatáshoz..."; 
             Console.ReadKey();
             keret((byte)(Console.WindowWidth / 4), (byte)(Console.WindowHeight / 4), (byte)(Console.WindowWidth/2), (byte)(Console.WindowHeight/2));
             szovegkiiratas((byte)(Console.WindowWidth / 4), (byte)(Console.WindowHeight / 4), (byte)(Console.WindowWidth / 2 - szoveg.Length/4), (byte)(Console.WindowHeight / 2), szoveg);
@@ -237,7 +245,13 @@
             Console.ReadLine();
             Console.BackgroundColor= ConsoleColor.Black;
             Console.Clear();
+
+
+
+            //filmek beolvasása
             film[] filmek = beolvaso();
+
+            //A Fő program
             bool fut = true;
             while (fut)
             {
@@ -254,13 +268,15 @@
                         break;
 
                     case 3:
+                        //Filmek adatai változtatása, még nincs meg
                         break;
 
                     case 4:
+                        //Filmek keresése, még nincs meg
                         break;
 
                     case 5:
-
+                        //Kilépés
                         break;
                 }
                 Console.Clear();
@@ -268,6 +284,8 @@
                 if ((Console.ReadLine().ToLower()) != "i")
                     fut = false;
             }
+
+            //elköszönés
             Console.WriteLine("Program vége, köszi hogy használtad, a kilépéshez nyomd meg az ENTERT! ;)");
             Console.ReadLine();   
             //tombkiiratas(x, y, hossz, magassag, tomb);
