@@ -145,16 +145,56 @@
 
         static film filmfeltoltes(film filmadatok)
         {
-            Console.WriteLine("Add meg a film címét: ");
+            Console.Clear();
+            Console.WriteLine("Add meg a film címét!");
             filmadatok.cim = hibakezelt_string();
 
             Console.WriteLine("Add meg a film megjelenési évét!");
             filmadatok.megjelenes = hibakezelt_int();
 
-            Console.WriteLine("Add meg a film gyártóját: ");
-            filmadatok.gyarto = hibakezelt_string();
-            
+            Console.WriteLine("Add meg a film hosszát percben!");
+            filmadatok.hossz = hibakezelt_int();
 
+            Console.WriteLine("Add meg a film gyártóját!");
+            filmadatok.gyarto = hibakezelt_string();
+
+            Console.WriteLine("Add meg a film műfajait ,-vel elválasztva!");
+            filmadatok.mufajok = hibakezelt_string().Split(",");
+
+            Console.WriteLine("Add meg a film szereplőit ,-vel elválasztva!");
+            filmadatok.szereplok = hibakezelt_string().Split(",");
+
+            Console.WriteLine("Add meg a film forgalmazóját!");
+            filmadatok.forgalmazo = hibakezelt_string();
+
+            FileStream fs = new FileStream("filmek.txt", FileMode.Append);
+            StreamWriter w = new StreamWriter(fs);
+            w.Write($"{filmadatok.cim};{filmadatok.megjelenes};{filmadatok.hossz};{filmadatok.gyarto};");
+            for (byte i = 0; i < filmadatok.mufajok.Length; i++)
+            {
+                w.Write($"{filmadatok.mufajok[i]}");
+                if (i != filmadatok.mufajok.Length - 1)
+                {
+                    w.Write("#");
+                }
+            }
+            w.Write(";");
+            for (byte i = 0; i < filmadatok.szereplok.Length; i++)
+            {
+                w.Write($"{filmadatok.szereplok[i]}");
+                if (i != filmadatok.szereplok.Length - 1)
+                {
+                    w.Write("#");
+                }
+            }
+            w.Write(";");
+            w.WriteLine($"{filmadatok.forgalmazo}");
+
+            w.Close();
+            fs.Close();
+            Console.WriteLine("Sikeres feltöltés!!!");
+            Console.WriteLine("Nyomd meg az ETERT, hogy visszamenj a menübe!");
+            Console.ReadLine();
 
             return filmadatok;
         }
@@ -209,7 +249,8 @@
                         filmlistakiirato(filmek);
                         break;
                     case 2:
-
+                        Array.Resize(ref filmek, filmek.Length+1);
+                        filmek[filmek.Length - 1] = filmfeltoltes(filmek[filmek.Length - 1]);
                         break;
 
                     case 3:
