@@ -23,5 +23,5 @@ A fájlra így hivatkozok: ../../../../filmek.txt, mert olyan helyre szerettem v
 
 ## A filmek tárolási szerkezete
 
-### Egy Sorban egy film adatai vannak
+### Egy sorban egy film adatai vannak
 Cím;Megjelenés(év);Hossz(Perc);Gyártó;Műfajok(#-el elválasztva)(pl: vígjáték#horror#akció#sci-fi);Szereplők(#-el elválasztva) (pl: Törppapa#Törppilla#Okoska);Forgalmazó
