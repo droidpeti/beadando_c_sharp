@@ -2,7 +2,9 @@
 
 Ebben a programban egy txt fájlban tárolt filmek adatait lehet lekérni/kezelni
 
-A filmek.txt az exe fájl melletti mappában van (bin/debug/dotnet7.0/filmek.txt)
+Az adatokat a filmek.txt fájlban tárolom
+
+A fájlra így hivatkozok: ../../../../filmek.txt, mert olyan helyre szerettem volna tenni a fájlt, amit a githubra is feltölt pusholással (bin/debug/dotnet7.0-át nem tölti fel!!!)
 
 ## Funkciók
 

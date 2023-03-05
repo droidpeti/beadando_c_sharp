@@ -66,7 +66,7 @@
             //A Filmek beolvasása fájlból, sajnos 100-nál nagyobb listával nem fog működni :(
             film[] filmek = new film[100];
 
-            FileStream fs = new FileStream("filmek.txt", FileMode.Open);
+            FileStream fs = new FileStream("../../../../filmek.txt", FileMode.Open);
             StreamReader r = new StreamReader(fs);
             string sor;
             string[] feldarabolt;
@@ -172,7 +172,7 @@
             Console.WriteLine("Add meg a film forgalmazóját!");
             filmadatok.forgalmazo = hibakezelt_string();
 
-            FileStream fs = new FileStream("filmek.txt", FileMode.Append);
+            FileStream fs = new FileStream("../../../../filmek.txt", FileMode.Append);
             StreamWriter w = new StreamWriter(fs);
             w.Write($"{filmadatok.cim};{filmadatok.megjelenes};{filmadatok.hossz};{filmadatok.gyarto};");
             for (byte i = 0; i < filmadatok.mufajok.Length; i++)

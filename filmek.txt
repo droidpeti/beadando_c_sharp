@@ -1,0 +1,5 @@
+Bébi úr;2017;97;DreamWorks;fantasy#vígjáték;Tim#Bébi úr#Francis E. Francis#Apa#Anya#Staci#Jimbo#Hármas ikrek#Mági#Eugene#Nagyfőnök bébi#Maci#Ross kapitány;20th Century Fox
+Verdák;2006;116;Pixar;sport#vígjáték;Villám McQueen#Matuka#Sully Monster Truck#Sally Carrera#Hudson Doki#Ramone#"The King" Motor Ottó#Fillmore#Őrmester#Luigi#Guido#Joe Komposztor#Seriff#Mack#Guba-kocsi#Yeti#Piti Bolha-kocsi#Lizi#Tőti#Piró#Kamion#Harv#Darrell Cartrip#Bob Cutlass#Mrs. The King#Boost#Wingo#DJ#Fékusz#Rozsdi#Porosdi#Mr. Stex#Jay Limo#Hengerfej#Fred#Junior#Mario Andretti#Ferrari#Governátor#Kori Turbowitz#Woody-autó#Buzz Lightyear-autó#Mike Isetta#Fürge-autó;Walt Disney
+Polar Expressz;2004;99;Castle Rock;fantasy#karácsonyi;Kalauz#Hajléktalan#Mikulás#Apa#Mesélő#Kisfiú#Kislány#Billy#Okoska#mozdonyvezető#masiniszta#Sarah#Főmanó;Warner Bros.
+feltoltesteszt;2023;10;Peti;programozas#csharp;peti#szamitogep#vs;pit
+teszt2;2030;11;El Corvus;Rap;morszman# Corvus;El Corvus
