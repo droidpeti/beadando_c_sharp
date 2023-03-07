@@ -17,7 +17,6 @@
         {
             //üdvözlő keret kiirató
             Console.Clear();
-            Console.BackgroundColor = ConsoleColor.Blue;
             if (x > Console.WindowWidth)
                 x = (byte)(Console.WindowWidth - hossz);
 
@@ -91,39 +90,51 @@
             return filmek;
         }
 
-        static void filmlistakiirato(film[] filmek)
+        static void filmlistakiirato(film film)
         {
+            Console.Clear();
             //A beolvasott filmek listája kiiratása
-            for (byte i = 0; i < filmek.Length; i++)
-            {
                 Console.BackgroundColor = ConsoleColor.DarkRed;
-                Console.Write($"{filmek[i].cim}");
+                Console.Write($"{film.cim}");
                 Console.BackgroundColor = ConsoleColor.Black;
-                Console.WriteLine($"\nMegjelenés: {filmek[i].megjelenes} ");
-                Console.WriteLine($"Hossza: {filmek[i].hossz} perc");
-                Console.WriteLine($"Készítette: {filmek[i].gyarto} ");
+                Console.WriteLine($"\nMegjelenés: {film.megjelenes} ");
+                Console.WriteLine($"Hossza: {film.hossz} perc");
+                Console.WriteLine($"Készítette: {film.gyarto} ");
                 Console.WriteLine("\nMűfajok: ");
-                for (byte j = 0; j < filmek[i].mufajok.Length; j++)
+                for (byte j = 0; j < film.mufajok.Length; j++)
                 {
-                    Console.Write(filmek[i].mufajok[j] + ", ");
+                    Console.Write(film.mufajok[j] + ", ");
                     if (j % 5 == 0 && j != 0)
                     {
                         Console.WriteLine();
                     }
                 }
                 Console.WriteLine("\n\nSzereplők: ");
-                for (byte j = 0; j < filmek[i].szereplok.Length; j++)
+                for (byte j = 0; j < film.szereplok.Length; j++)
                 {
-                    Console.Write(filmek[i].szereplok[j] + ", ");
+                    Console.Write(film.szereplok[j] + ", ");
                     if (j % 3 == 0 && j != 0)
                     {
                         Console.WriteLine();
                     }
                 }
 
-                Console.WriteLine($"\n\nKiadta: {filmek[i].forgalmazo}\n\n");
-            }
+                Console.WriteLine($"\n\nKiadta: {film.forgalmazo}\n\n");
+
+            Console.WriteLine("Nyomd meg az Entert a kilépéshez...");
             Console.ReadKey();
+        }
+
+        static int filmvalaszto(film[] filmek)
+        {
+            Console.Clear();
+            Console.WriteLine("Válaszd ki, hogy melyik filmnek az adatait szeretnéd megnézni: ");
+            for(byte i = 0; i < filmek.Length; i++)
+            {
+                Console.WriteLine($"{i+1}. {filmek[i].cim}\n");
+            }
+            Console.WriteLine("Add meg a film sorsámát!");
+            return hibakezelt_int()-1;
         }
         static byte menu()
         {
@@ -236,14 +247,14 @@
         static void Main(string[] args)
         {
             //üdvözlő keret
+            Console.BackgroundColor = ConsoleColor.Blue;
             string szoveg = "Üdv a Filmes beadandó programomban!";
             string szoveg2 = "Nyomd meg az ENTERT a folytatáshoz..."; 
-            Console.ReadKey();
             keret((byte)(Console.WindowWidth / 4), (byte)(Console.WindowHeight / 4), (byte)(Console.WindowWidth/2), (byte)(Console.WindowHeight/2));
             szovegkiiratas((byte)(Console.WindowWidth / 4), (byte)(Console.WindowHeight / 4), (byte)(Console.WindowWidth / 2 - szoveg.Length/4), (byte)(Console.WindowHeight / 2), szoveg);
-            szovegkiiratas((byte)(Console.WindowWidth / 4), (byte)(Console.WindowHeight / 4+2), (byte)(Console.WindowWidth / 2 - szoveg.Length / 4), (byte)(Console.WindowHeight / 2), szoveg2);
+            szovegkiiratas((byte)(Console.WindowWidth / 4), (byte)(Console.WindowHeight / 4+2), (byte)(Console.WindowWidth / 2 - szoveg2.Length / 4), (byte)(Console.WindowHeight / 2), szoveg2);
             Console.ReadLine();
-            Console.BackgroundColor= ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.Clear();
 
 
@@ -260,7 +271,7 @@
                 switch (menupont)
                 {
                     case 1:
-                        filmlistakiirato(filmek);
+                        filmlistakiirato(filmek[filmvalaszto(filmek)]);
                         break;
                     case 2:
                         Array.Resize(ref filmek, filmek.Length+1);
@@ -286,7 +297,11 @@
             }
 
             //elköszönés
-            Console.WriteLine("Program vége, köszi hogy használtad, a kilépéshez nyomd meg az ENTERT! ;)");
+            string szoveg3 = "Itt a program vége";
+            Console.BackgroundColor= ConsoleColor.DarkYellow;
+            keret((byte)(Console.WindowWidth / 4), (byte)(Console.WindowHeight / 4), (byte)(Console.WindowWidth / 2), (byte)(Console.WindowHeight / 2));
+            szovegkiiratas((byte)(Console.WindowWidth / 4), (byte)(Console.WindowHeight / 4), (byte)(Console.WindowWidth / 2 - szoveg3.Length / 4), (byte)(Console.WindowHeight / 2), szoveg3);
+            szovegkiiratas((byte)(Console.WindowWidth / 4), (byte)(Console.WindowHeight / 4 + 2), (byte)(Console.WindowWidth / 2 - szoveg2.Length / 4), (byte)(Console.WindowHeight / 2), szoveg2);
             Console.ReadLine();   
             //tombkiiratas(x, y, hossz, magassag, tomb);
             //szovegkiiratas(x, y, hossz, magassag, szoveg);
