@@ -94,33 +94,47 @@
         {
             Console.Clear();
             //A beolvasott filmek listája kiiratása
-                Console.BackgroundColor = ConsoleColor.DarkRed;
-                Console.Write($"{film.cim}");
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.WriteLine($"\nMegjelenés: {film.megjelenes} ");
-                Console.WriteLine($"Hossza: {film.hossz} perc");
-                Console.WriteLine($"Készítette: {film.gyarto} ");
-                Console.WriteLine("\nMűfajok: ");
-                for (byte j = 0; j < film.mufajok.Length; j++)
+            byte sor = 0;
+            Console.BackgroundColor = ConsoleColor.Magenta;
+            keret(0,0, 100, 13+film.mufajok.Length/5+film.szereplok.Length/3);
+            Console.SetCursorPosition(2, ++sor);
+            Console.BackgroundColor = ConsoleColor.DarkRed;
+            Console.Write($"{film.cim}");
+            Console.BackgroundColor = ConsoleColor.Magenta;
+            Console.SetCursorPosition(2, ++sor);
+            Console.WriteLine($"Megjelenés: {film.megjelenes} ");
+            Console.SetCursorPosition(2, ++sor);
+            Console.WriteLine($"Hossza: {film.hossz} perc");
+            Console.SetCursorPosition(2, ++sor);
+            Console.WriteLine($"Készítette: {film.gyarto} ");
+            ++sor;
+            Console.SetCursorPosition(2, ++sor);
+            Console.Write("Műfajok: ");
+            Console.SetCursorPosition(2, ++sor);
+            for (byte j = 0; j < film.mufajok.Length; j++)
                 {
-                    Console.Write(film.mufajok[j] + ", ");
-                    if (j % 5 == 0 && j != 0)
+                Console.Write(film.mufajok[j] + ", ");
+                if (j % 5 == 0 && j != 0) 
                     {
-                        Console.WriteLine();
+                        Console.SetCursorPosition(2, ++sor);
                     }
                 }
-                Console.WriteLine("\n\nSzereplők: ");
-                for (byte j = 0; j < film.szereplok.Length; j++)
+            ++sor;
+            Console.SetCursorPosition(2, ++sor);
+            Console.Write("Szereplők: ");
+            Console.SetCursorPosition(2, ++sor);
+            for (byte j = 0; j < film.szereplok.Length; j++)
                 {
                     Console.Write(film.szereplok[j] + ", ");
-                    if (j % 3 == 0 && j != 0)
-                    {
-                        Console.WriteLine();
-                    }
+                if (j % 3 == 0 && j != 0)
+                {
+                    Console.SetCursorPosition(2, ++sor);
                 }
+            }
+            Console.SetCursorPosition(2, ++sor);
+            Console.WriteLine($"Kiadta: {film.forgalmazo}\n\n");
 
-                Console.WriteLine($"\n\nKiadta: {film.forgalmazo}\n\n");
-
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine("Nyomd meg az Entert a kilépéshez...");
             Console.ReadKey();
         }
