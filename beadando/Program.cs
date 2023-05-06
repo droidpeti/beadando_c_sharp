@@ -90,7 +90,7 @@
             return filmek;
         }
 
-        static void filmlistakiirato(film film)
+        static void filmlistakiirato(film film, string vegszoveg)
         {
             Console.Clear();
             //A beolvasott filmek listája kiiratása
@@ -135,7 +135,7 @@
             Console.WriteLine($"Kiadta: {film.forgalmazo}\n\n");
 
             Console.BackgroundColor = ConsoleColor.Black;
-            Console.WriteLine("Nyomd meg az Entert a kilépéshez...");
+            Console.WriteLine(vegszoveg);
             Console.ReadKey();
         }
 
@@ -258,6 +258,111 @@
             } while (!ok);
             return szam;
         }
+
+        static string hibakezelt_kategoria()
+        {
+            string szoveg = "";
+            string[] kategoriak = {"cim", "megjelenes", "hossz", "gyarto", "mufajok", "szereplok", "forgalmazo" };
+            foreach(string kategoria in kategoriak)
+            {
+                Console.Write(kategoria + " ");
+            }
+            Console.WriteLine();
+            //itt valami nem jó mert mindig újrakéri
+            while (!kategoriak.Contains(szoveg))
+            {
+                Console.Write("Adj meg egy kategóriát: ");
+                szoveg = Console.ReadLine().ToLower();
+            }
+            return szoveg;
+        }
+
+        static string[] hibakezelt_string_tomb()
+        {
+            Console.WriteLine("Max 255 elemet adhatsz meg!");
+            string[] tomb = new string[255];
+            bool megegy = true;
+            byte db = 0;
+            while(megegy)
+            {
+                tomb[db++] = hibakezelt_string();
+                Console.Write("Szeretnél mégegy elemet megadni? (i/n)");
+                if(!(Console.ReadLine() == "i"))
+                {
+                    megegy = false;
+                }
+            }
+            Array.Resize(ref tomb, db);
+            return tomb;
+        }
+
+        static void filmadat_valtoztatas(ref film[] filmek)
+        {
+            int filmindex = filmvalaszto(filmek);
+            filmlistakiirato(filmek[filmindex], "Add meg melyik adatát szeretnéd megváltoztatni: (Enter...)");
+
+            string megvaltoztatando = hibakezelt_kategoria();
+            Console.Clear();
+
+            switch (megvaltoztatando)
+            {
+                case "cim":
+                    filmek[filmindex].cim = hibakezelt_string();
+                    break;
+                case "megjelenes":
+                    filmek[filmindex].megjelenes = hibakezelt_int();
+                    break;
+                case "hossz":
+                    filmek[filmindex].hossz = hibakezelt_int();
+                    break;
+                case "gyarto":
+                    filmek[filmindex].gyarto = hibakezelt_string(); ;
+                    break;
+                case "mufajok":
+                    filmek[filmindex].mufajok = hibakezelt_string_tomb();
+                    break;
+                case "szereplok":
+                    filmek[filmindex].szereplok = hibakezelt_string_tomb();
+                    break;
+                case "forgalmazo":
+                    filmek[filmindex].forgalmazo = hibakezelt_string(); ;
+                    break;
+            }
+                    
+                
+            FileStream fs = new FileStream("../../../../filmek.txt", FileMode.Create);
+            StreamWriter w = new StreamWriter(fs);
+            foreach(film film in filmek)
+            {
+                w.Write($"{film.cim};{film.megjelenes};{film.hossz};{film.gyarto};");
+                for(byte i = 0; i < film.mufajok.Length; i++)
+                {
+                    w.Write($"{film.mufajok[i]}");
+                    if(!(i == film.mufajok.Length - 1))
+                    {
+                        w.Write('#');
+                    }
+                }
+                w.Write(";");
+                for (byte i = 0; i < film.szereplok.Length; i++)
+                {
+                    w.Write($"{film.szereplok[i]}");
+                    if (!(i == film.szereplok.Length - 1))
+                    {
+                        w.Write('#');
+                    }
+                }
+                w.Write(";");
+                w.Write($"{film.forgalmazo}\n");
+            }
+
+            w.Close();
+            fs.Close();
+            Console.WriteLine("Sikeres megváltoztatás! (Enter...)");
+            Console.ReadLine();
+            
+            //cím;megjelenés(év);hossz(perc);gyártó;műfjakok(#-el elválasztva);szereplők(#-el elválasztva);forgalmazó;
+        }
         static void Main(string[] args)
         {
             //üdvözlő keret
@@ -285,7 +390,7 @@
                 switch (menupont)
                 {
                     case 1:
-                        filmlistakiirato(filmek[filmvalaszto(filmek)]);
+                        filmlistakiirato(filmek[filmvalaszto(filmek)], "Nyomd meg az Entert a kilépéshez...");
                         break;
                     case 2:
                         Array.Resize(ref filmek, filmek.Length+1);
@@ -293,6 +398,7 @@
                         break;
 
                     case 3:
+                        filmadat_valtoztatas(ref filmek);
                         //Filmek adatai változtatása, még nincs meg
                         break;
 
