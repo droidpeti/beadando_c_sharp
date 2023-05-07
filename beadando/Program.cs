@@ -62,32 +62,46 @@
 
         static film[] beolvaso()
         {
-            //A Filmek beolvasása fájlból, sajnos 100-nál nagyobb listával nem fog működni :(
-            film[] filmek = new film[100];
 
+            //A Filmek beolvasása fájlból, sajnos 100-nál nagyobb listával nem fog működni :(
+            if (!File.Exists("../../../../filmek.txt"))
+            {
+                FileStream fs2 = new FileStream("../../../../filmek.txt", FileMode.Create);
+                StreamWriter w = new StreamWriter(fs2);
+                w.WriteLine("feltoltesteszt;2023;10;Peti;programozas#csharp;peti#szamitogep#vs;pit");
+                w.Close();
+                fs2.Close();
+            }
+            
             FileStream fs = new FileStream("../../../../filmek.txt", FileMode.Open);
             StreamReader r = new StreamReader(fs);
-            string sor;
-            string[] feldarabolt;
-            int db = 0;
-            while(!r.EndOfStream)
-            {
-                sor = r.ReadLine();
-                feldarabolt = sor.Split(";");
-                //cím;megjelenés(év);hossz(perc);gyártó;műfjakok(#-el elválasztva);szereplők(#-el elválasztva);forgalmazó
-                filmek[db].cim = feldarabolt[0];
-                filmek[db].megjelenes = Convert.ToInt32(feldarabolt[1]);
-                filmek[db].hossz = Convert.ToInt32(feldarabolt[2]);
-                filmek[db].gyarto = feldarabolt[3];
-                filmek[db].mufajok = feldarabolt[4].Split("#");
-                filmek[db].szereplok = feldarabolt[5].Split("#");
-                filmek[db++].forgalmazo = feldarabolt[6];
-            }
-            r.Close();
-            fs.Close();
-            Array.Resize(ref filmek, db);
+            
+            film[] filmek = new film[100];
 
-            return filmek;
+                
+                string sor;
+                string[] feldarabolt;
+                int db = 0;
+                while (!r.EndOfStream)
+                {
+                    sor = r.ReadLine();
+                    feldarabolt = sor.Split(";");
+                    //cím;megjelenés(év);hossz(perc);gyártó;műfjakok(#-el elválasztva);szereplők(#-el elválasztva);forgalmazó
+                    filmek[db].cim = feldarabolt[0];
+                    filmek[db].megjelenes = Convert.ToInt32(feldarabolt[1]);
+                    filmek[db].hossz = Convert.ToInt32(feldarabolt[2]);
+                    filmek[db].gyarto = feldarabolt[3];
+                    filmek[db].mufajok = feldarabolt[4].Split("#");
+                    filmek[db].szereplok = feldarabolt[5].Split("#");
+                    filmek[db++].forgalmazo = feldarabolt[6];
+                }
+                r.Close();
+                fs.Close();
+                Array.Resize(ref filmek, db);
+
+                return filmek;
+            
+            
         }
 
         static void filmlistakiirato(film film, string vegszoveg)
@@ -268,7 +282,6 @@
                 Console.Write(kategoria + " ");
             }
             Console.WriteLine();
-            //itt valami nem jó mert mindig újrakéri
             while (!kategoriak.Contains(szoveg))
             {
                 Console.Write("Adj meg egy kategóriát: ");
@@ -363,6 +376,89 @@
             
             //cím;megjelenés(év);hossz(perc);gyártó;műfjakok(#-el elválasztva);szereplők(#-el elválasztva);forgalmazó;
         }
+
+        static void filmkereses(film[] filmek)
+        {
+            Console.Clear();
+            Console.Write("Add meg a kategóriát, ami alapján keresni szeretnél: ");
+            string keresett_kategoria = hibakezelt_kategoria();
+            Console.Write("Add meg a keresett szót: ");
+            string kereses = "";
+            if(keresett_kategoria == "cim" || keresett_kategoria == "gyarto" || keresett_kategoria == "forgalmazo" || keresett_kategoria == "mufajok" || keresett_kategoria == "szereplok")
+            {
+                kereses = hibakezelt_string();
+            }
+            else
+            {
+                kereses = Convert.ToString(hibakezelt_int());
+            }
+            
+            int[] filmindexek = new int[1000];
+            int db = 0;
+            for(int i = 0; i < filmek.Length; i++)
+            {
+                switch(keresett_kategoria)
+                {
+                    //cím;megjelenés(év);hossz(perc);gyártó;műfjakok(#-el elválasztva);szereplők(#-el elválasztva);forgalmazó;
+                    case "cim":
+                        if (filmek[i].cim == kereses)
+                        {
+                            filmindexek[db++] = i;
+                        }
+                        break;
+                    case "megjelenes":
+                        if (filmek[i].megjelenes == Convert.ToInt32(kereses))
+                        {
+                            filmindexek[db++] = i;
+                        }
+                        break;
+                    case "hossz":
+                        if (filmek[i].hossz == Convert.ToInt32(kereses))
+                        {
+                            filmindexek[db++] = i;
+                        }
+                        break;
+                    case "gyarto":
+                        if (filmek[i].gyarto == kereses)
+                        {
+                            filmindexek[db++] = i;
+                        }
+                        break;
+                    case "mufajok":
+                        if (filmek[i].mufajok.Contains(kereses))
+                        {
+                            filmindexek[db++] = i;
+                        }
+                        break;
+                    case "szereplok":
+                        if (filmek[i].szereplok.Contains(kereses))
+                        {
+                            filmindexek[db++] = i;
+                        }
+                        break;
+                    case "forgalmazo":
+                        if (filmek[i].forgalmazo == kereses)
+                        {
+                            filmindexek[db++] = i;
+                        }
+                        break;
+                }
+            }
+            Array.Resize(ref filmindexek, db);
+            if (filmindexek.Length > 0)
+            {
+                Console.WriteLine("Sikeresen találtunk filmeket!");
+                for(int i = 0; i < db; i++)
+                {
+                    filmlistakiirato(filmek[filmindexek[i]], "A következő film megtekintéséhez nyomd meg az Entert!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Nem találtunk ilyen filmet!\nEnter...");
+                Console.ReadLine();
+            }
+        }
         static void Main(string[] args)
         {
             //üdvözlő keret
@@ -398,11 +494,11 @@
                         break;
 
                     case 3:
-                        filmadat_valtoztatas(ref filmek);
-                        //Filmek adatai változtatása, még nincs meg
+                        filmadat_valtoztatas(ref filmek); //to do ne lehessen film hossza negatív
                         break;
 
                     case 4:
+                        filmkereses(filmek);
                         //Filmek keresése, még nincs meg
                         break;
 

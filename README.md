@@ -11,14 +11,14 @@ A fájlra így hivatkozok: ../../../../filmek.txt, mert olyan helyre szerettem v
 ### Egyéb funkciók
 - [x] Keret rajzoló
 - [x] Hibakezelés
-- [ ] Fájl létrehozása, ha még nem létezik
+- [x] Fájl létrehozása, ha még nem létezik
 - [x] Addig fut, amíg a felhasználó ki nem lép
 
 ### Menüpontok
 - [x] Filmlista kiiratása
 - [x] Új film feltöltése a fájlba
-- [ ] Film keresése a megadott szempont alapján
-- [ ] A fájlban egy film adatai módosítása
+- [x] Film keresése a megadott szempont alapján
+- [x] A fájlban egy film adatai módosítása
 - [x] Kilépés a programból
 
 ## A filmek tárolási szerkezete
