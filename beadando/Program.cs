@@ -173,8 +173,12 @@
             {
                 Console.Clear();
                 Console.WriteLine("Válassz egy menüpontot!");
-                Console.WriteLine("1: Filmek kilistázása minden adattal\n2: Új film feltöltése\n3: Egy film adatai megváltoztatása\n4: Keresés különböző szempontok alapján\n5: Kilépés");
-                Console.Write("Add meg a kiválasztott menüpontot: ");
+                string[] menupontok = { "Filmek kilistázása minden adattal", "Új film feltöltése", "Egy film adatai megváltoztatása", "Keresés különböző szempontok alapján", "Kilépés" };
+                for(byte i = 0; i < menupontok.Length; i++)
+                {
+                    Console.WriteLine((i+1)+": "+menupontok[i]);
+                }
+                Console.Write("\nAdd meg a kiválasztott menüpontot: ");
                 ok = Byte.TryParse(Console.ReadLine(), out menupont);
                 if (menupont < 1 || menupont > 5 || !ok)
                 {
