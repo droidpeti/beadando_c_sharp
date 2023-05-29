@@ -4,3 +4,4 @@ Polar Expressz;2004;99;Castle Rock;fantasy#karácsonyi;Kalauz#Hajléktalan#Mikul
 feltoltesteszt;2023;10;Peti;programozas#csharp;peti#szamitogep#vs;pit
 teszt2;2030;11;El Corvus;Rap;morszman# Corvus;El Corvus
 atirasteszt;2000;20;pit;valami#valami2;alma#korte;csursz
+Mariska;2012;60;Mariii;komedia# parodia;mario# parazita# beles# nacho;curv
